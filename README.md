@@ -8,3 +8,4 @@
 - React
 - Vite
 - TypeScript
+- Tailwind
