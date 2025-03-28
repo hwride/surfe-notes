@@ -1,10 +1,14 @@
 import "./App.css";
+import { Note } from "./components/Note.tsx";
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Surfe Notes</h1>
-    </>
+    <main className="max-w-100 m-auto">
+      <h1 className="text-3xl font-bold m-auto text-center mb-2">
+        Surfe Notes
+      </h1>
+      <Note />
+    </main>
   );
 }
 
