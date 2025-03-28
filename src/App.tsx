@@ -1,19 +1,22 @@
 import "./App.css";
 import { Note } from "./components/Note.tsx";
-import { fetchNote } from "./utils/note-service.ts";
+import { fetchNote, saveNote } from "./utils/note-service.ts";
 import { useEffect, useState } from "react";
 import { NoteType } from "./types/NoteType.ts";
 
 function App() {
+  // Extract session and note ID from query params.
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get("sessionId");
   const noteId = params.get("noteId");
+
   const [state, setState] = useState<
     { state: "loading" } | { state: "loaded"; note: NoteType }
   >({
     state: "loading",
   });
 
+  // Fetch initial note state.
   useEffect(() => {
     (async () => {
       const note = await fetchNote(sessionId, noteId);
@@ -21,9 +24,8 @@ function App() {
         state: "loaded",
         note,
       });
-      console.log("note", note);
     })();
-  });
+  }, []);
 
   return (
     <main className="max-w-100 m-auto">
@@ -33,7 +35,18 @@ function App() {
       {state.state === "loading" ? "Loading..." : null}
       {state.state === "loaded" ? (
         <>
-          <Note note={state.note} />
+          <Note
+            note={state.note}
+            onNoteChange={async (newNote) => {
+              setState({ state: "loaded", note: newNote });
+              console.log("onNoteChange", newNote);
+              try {
+                await saveNote(sessionId, noteId, newNote);
+              } catch (e) {
+                console.error("Failed to save note", e);
+              }
+            }}
+          />
         </>
       ) : null}
     </main>

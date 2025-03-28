@@ -21,3 +21,22 @@ export async function fetchNote(
   const data = (await response.json()) as NoteType;
   return data;
 }
+
+export async function saveNote(
+  sessionId: string,
+  noteId: string,
+  note: NoteType,
+): Promise<void> {
+  const url = `https://challenge.surfe.com/${sessionId}/notes/${noteId}`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ body: note.body }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to save note: ${response.statusText}`);
+  }
+}
