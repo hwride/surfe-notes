@@ -27,10 +27,16 @@ export function AllNotes({ sessionId }: { sessionId: string }) {
         <div className="flex-1">
           {state.state === "loading" ? "Loading..." : null}
           {state.state === "loaded" ? (
-            <ol>
+            <ol className="rounded-lg overflow-hidden">
               {state.notes.map((note) => (
-                <li key={note.id}>
-                  <a href={`?sessionId=${sessionId}&noteId=${note.id}`}>
+                <li
+                  key={note.id}
+                  className="flex border-b-1 last:border-b-0 border-gray-300"
+                >
+                  <a
+                    href={`?sessionId=${sessionId}&noteId=${note.id}`}
+                    className="w-full bg-white p-4 font-medium hover:underline "
+                  >
                     Note {note.id}
                   </a>
                 </li>
