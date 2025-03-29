@@ -41,6 +41,26 @@ export async function getNote(
   return data;
 }
 
+export async function createNote(
+  sessionId: string,
+  body: string,
+): Promise<NoteType> {
+  const url = `https://challenge.surfe.com/${sessionId}/notes`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ body }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to save note, response status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+
 export async function saveNote(
   sessionId: string,
   noteId: string,
