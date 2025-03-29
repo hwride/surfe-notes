@@ -17,7 +17,10 @@ export function Page({
             <ol>
               {headerLinks.map(({ label, href }) => (
                 <li>
-                  <a href={href} className="hover:underline">
+                  <a
+                    href={href}
+                    className="hover:underline text-blue-500 hover:text-blue-700"
+                  >
                     {label}
                   </a>
                 </li>

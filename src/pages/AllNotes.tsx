@@ -35,7 +35,7 @@ export function AllNotes({ sessionId }: { sessionId: string }) {
                 >
                   <a
                     href={`?sessionId=${sessionId}&noteId=${note.id}`}
-                    className="w-full bg-white p-4 font-medium hover:underline "
+                    className="w-full bg-white p-4 font-medium hover:bg-gray-200"
                   >
                     Note {note.id}
                   </a>
