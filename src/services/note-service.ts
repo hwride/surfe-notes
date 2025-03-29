@@ -1,4 +1,5 @@
 import { NoteType } from "../types/NoteType.ts";
+import { User } from "../types/User.ts";
 
 export async function getNotes(sessionId: string): Promise<NoteType[]> {
   const url = `https://challenge.surfe.com/${sessionId}/notes`;
@@ -65,7 +66,7 @@ export async function saveNote(
   sessionId: string,
   noteId: string,
   note: NoteType,
-): Promise<void> {
+): Promise<NoteType> {
   const url = `https://challenge.surfe.com/${sessionId}/notes/${noteId}`;
   const response = await fetch(url, {
     method: "PUT",
@@ -80,4 +81,19 @@ export async function saveNote(
       `Failed to save note ${noteId}, response status: ${response.status}`,
     );
   }
+
+  return await response.json();
+}
+
+export async function getUsers(): Promise<User[]> {
+  const url = `https://challenge.surfe.com/users`;
+  const response = await fetch(url, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get users, response status: ${response.status}`);
+  }
+
+  return (await response.json()) as User[];
 }
