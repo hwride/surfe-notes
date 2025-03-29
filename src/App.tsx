@@ -1,6 +1,7 @@
 import "./App.css";
 import { Note } from "./pages/Note.tsx";
 import { AllNotes } from "./pages/AllNotes.tsx";
+import { Login } from "./pages/Login.tsx";
 
 function App() {
   // Extract session and note ID from query params.
@@ -9,7 +10,7 @@ function App() {
   const noteId = params.get("noteId");
 
   if (!sessionId) {
-    return <div>Please provide a session ID</div>;
+    return <Login />;
   } else if (!noteId) {
     return <AllNotes sessionId={sessionId} />;
   } else {
