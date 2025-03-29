@@ -1,6 +1,25 @@
 import { NoteType } from "../types/NoteType.ts";
 
-export async function fetchNote(
+export async function getNotes(sessionId: string): Promise<NoteType[]> {
+  const url = `https://challenge.surfe.com/${sessionId}/notes`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch notes, response status: ${response.status}`,
+    );
+  }
+
+  const data = (await response.json()) as NoteType[];
+  return data;
+}
+
+export async function getNote(
   sessionId: string,
   noteId: string,
 ): Promise<NoteType> {
