@@ -30,7 +30,10 @@ export function Note({
   }, []);
 
   return (
-    <Page heading={`Note ${noteId}`}>
+    <Page
+      heading={`Note ${noteId}`}
+      headerLinks={[{ label: "All notes", href: `?sessionId=${sessionId}` }]}
+    >
       {state.state === "loading" ? "Loading..." : null}
       {state.state === "loaded" ? (
         <textarea
