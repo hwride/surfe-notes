@@ -37,6 +37,8 @@ export async function saveNote(
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to save note: ${response.statusText}`);
+    throw new Error(
+      `Failed to save note ${noteId}, response status: ${response.status}`,
+    );
   }
 }
